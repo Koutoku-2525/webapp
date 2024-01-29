@@ -23,8 +23,8 @@
 
   <div id="InputUiDiv" class="input-ui">
     <!-- <p id="ResMsg">今日の進捗を書いてください。</p> -->
-    <input type="text" id="TextBox" placeholder="年間予定を書いてください。" />
-    <input type="text" id="TextBox" placeholder="課題内容を書いてください。" />
+    <input type="text" id="TextBoxYear" placeholder="年間予定を書いてください。" />
+    <input type="text" id="TextBoxSubject" placeholder="課題内容を書いてください。" />
     <button id="Button1">送信</button>
   </div>
   <div id="IsBusy" class="loader"></div>
@@ -51,14 +51,23 @@
       $("#InputUiDiv").style.display = "none";
 
       // APIのURLを構築
-      let URL = `${API_URL}?action=${action}`;
-      let memo = $("#TextBox").value;
-      if (memo.length > 0) {
+      let URL = `${API_URL}`;
+      let year = $("#TextBoxYear").value;
+      if (year.length > 0) {
         // メモが入力されていればエンコードしてURLに追加
-        let encodedMemo = encodeURIComponent(memo);
-        URL += `&memo=${encodedMemo}`;
-        $("#TextBox").value = "";
+        let encodedYear = encodeURIComponent(year);
+        URL += `&year=${encodedYear}`;
+        $("#TextBoxYear").value = "";
       }
+
+      let subject = $("#TextBoxSubject").value;
+      if (subject.length > 0) {
+        // メモが入力されていればエンコードしてURLに追加
+        let encodedSubject = encodeURIComponent(subject);
+        URL += `&subject=${encodedSubject}`;
+        $("#TextBoxSubject").value = "";
+      }
+
       console.log(URL);
       // フェッチを使ってAPIにデータを送信
       fetch(URL, { method: "GET" })
@@ -74,9 +83,7 @@
     }
 
     // ボタンがクリックされたときにGetData関数を呼び出す
-    $("#Button1").onclick = GetData.bind(null, "a");
-    $("#Button2").onclick = GetData.bind(null, "b");
-    $("#Button3").onclick = GetData.bind(null, "c");
+    $("#Button1").onclick = GetData.bind(null);
     // ログの表示
     console.log("JSプログラムの読込み完了");
   };

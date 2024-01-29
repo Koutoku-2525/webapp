@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <title>よていまるわかりくん</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <h1>まるわかりくん</h1>
+  <img src="app-img.jpg" />
+  <p>
+    1年間の予定をまとめて管理することができます。<br>
+    予定表は<a href="https://docs.google.com/spreadsheets/d/14iXCJCJV5_kdWANcofqWiJuHCQp2cr8GeUr1q0t2an4/edit?usp=sharing" target="_blank" rel="noopener noreferrer">こちら</a>。<br>
+    卒業研究の入力フォームは<a href="sotsuken.html">こちら</a>。<br>
+    送信時と課題の3日前になると<i class="fa-brands fa-line"></i>にリマインドが送信されます。
+
+  </p>
+
+  <div id="InputUiDiv" class="input-ui">
+    <!-- <p id="ResMsg">今日の進捗を書いてください。</p> -->
+    <input type="text" id="TextBox" placeholder="年間予定を書いてください。" />
+    <input type="text" id="TextBox" placeholder="課題内容を書いてください。" />
+    <button id="Button1">送信</button>
+  </div>
+  <div id="IsBusy" class="loader"></div>
+  <p id="ResMsg">記入が終了したら送信ボタンを押してください。</p>
+
+</body>
+
+<script>
+  // ページの読み込みが完了したら実行
+  window.onload = function () {
+    // $関数: 指定された要素を取得
+    function $(e) {
+      return document.querySelector(e);
+    }
+    // Google Apps ScriptのAPIの情報
+    const API_ID = "AKfycbwmXN1Gd1LdXJFsO1yiS4m-j6jEWgYyKNEsHaHNwoM";
+    const API_URL = `https://script.google.com/macros/s/${API_ID}/exec`;
+
+    // データを取得する関数
+    function GetData(action) {
+      // 送信中メッセージの表示とUIの調整
+      $("#ResMsg").textContent = "...送信中...";
+      $("#IsBusy").style.display = "flex";
+      $("#InputUiDiv").style.display = "none";
+
+      // APIのURLを構築
+      let URL = `${API_URL}?action=${action}`;
+      let memo = $("#TextBox").value;
+      if (memo.length > 0) {
+        // メモが入力されていればエンコードしてURLに追加
+        let encodedMemo = encodeURIComponent(memo);
+        URL += `&memo=${encodedMemo}`;
+        $("#TextBox").value = "";
+      }
+      console.log(URL);
+      // フェッチを使ってAPIにデータを送信
+      fetch(URL, { method: "GET" })
+        .then((res) => res.text())
+        .then((res) => {
+          console.log(res);
+          // レスポンスを解析してメッセージを表示し、UIを元に戻す
+          let obj = JSON.parse(res);
+          $("#ResMsg").textContent = `${obj.msg}`;
+          $("#IsBusy").style.display = "none";
+          $("#InputUiDiv").style.display = "flex";
+        });
+    }
+
+    // ボタンがクリックされたときにGetData関数を呼び出す
+    $("#Button1").onclick = GetData.bind(null, "a");
+    $("#Button2").onclick = GetData.bind(null, "b");
+    $("#Button3").onclick = GetData.bind(null, "c");
+    // ログの表示
+    console.log("JSプログラムの読込み完了");
+  };
+
+</script>
+
+</html>

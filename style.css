@@ -1,0 +1,160 @@
+/* HTML要素全体に適用されるスタイル */
+html {
+  -ms-text-size-adjust: 100%; /* IEブラウザへの対応 */
+  -webkit-text-size-adjust: 100%; /* Webkit系ブラウザへの対応 */
+  font-family: "Yusei Magic", sans-serif; /* フォントの指定 */
+}
+
+/* ページ全体のスタイル */
+body {
+  line-height: 1.5; /* 行の高さを1.5倍に設定 */
+  word-wrap: break-word; /* 長い単語を折り返す */
+  box-sizing: border-box; /* ボックスモデルの設定 */
+  max-width: 980px; /* 最大幅の指定 */
+  margin: 2em auto; /* ページの上下マージンと左右中央寄せ */
+  padding: 0px 50px; /* ページの内側の余白 */
+  text-align: center; /* テキストを中央寄せ */
+}
+
+/* 段落のスタイル */
+p {
+  font-size: 1.3rem; /* フォントサイズの指定 */
+  margin: 0.8rem 0px; /* 上下のマージンの指定 */
+}
+
+/* 767px以下の画面サイズに対するスタイル */
+@media (max-width: 767px) {
+  body {
+      padding-left: 15px; /* 左のパディングを15pxに設定 */
+      padding-right: 15px; /* 右のパディングを15pxに設定 */
+  }
+}
+
+/* 見出し1（h1）のスタイル */
+h1 {
+  font-size: 2rem; /* フォントサイズの指定 */
+}
+
+/* リンク（a要素）のスタイル */
+a {
+  text-decoration: none; /* 下線をなくす */
+  color:black;
+}
+
+/* リンクホバー時のスタイル */
+a:hover {
+  text-decoration: underline double; /* 下線と点線を表示 */
+  text-decoration-color: #007bff; /* 下線と点線の色を赤に設定 */
+}
+
+/* 画像（img要素）のスタイル */
+img {
+  max-width: 50%; /* 最大幅を50%に設定 */
+  height: auto; /* 高さを自動調整 */
+  cursor: pointer; /* ポインターカーソル */
+  pointer-events: none; /* マウスイベントを無効化 */
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; /* 影の指定 */
+  border-radius: 20px; /* 角丸にする */
+}
+
+/* 特定のクラス（input-ui）を持つdiv要素のスタイル */
+div.input-ui {
+  width: 100%; /* 親コンテナの幅を100%に設定 */
+  display: flex; /* Flexboxを使用して要素を配置 */
+  flex-direction: column; /* 子要素を縦方向に並べる */
+  align-items: center; /* 子要素を中央に配置 */
+}
+
+/* ボタン要素のスタイル */
+button {
+  width: 100%; /* ボタンの幅を親コンテナの90%に設定 */
+  max-width: 400px; /* ボタンの最大幅を400pxに設定 */
+  margin: 5px 0; /* 上下のマージンを設定 */
+  padding: 10px 20px; /* パディングを設定 */
+  border: none; /* ボーダーを消す */
+  background-color: #007bff; /* 青色系の背景色 */
+  color: white; /* 文字色を白に設定 */
+  font-size: 16px; /* フォントサイズを設定 */
+  cursor: pointer; /* カーソルをポインタに設定 */
+  transition: background-color 0.5s; /* 背景色の変化をアニメーション化 */
+  border-radius: 5px; /* 角丸にする */
+  font-family: "Yusei Magic", sans-serif; /* フォントの指定 */
+}
+
+/* ボタンホバー時のスタイル */
+button:hover {
+  background-color: #0056b3; /* ホバー時の背景色を変更 */
+}
+
+/* 入力要素（input）のスタイル */
+input {
+  width: 100%; /* 幅を100%に設定 */
+  max-width: 400px; /* 最大幅を400pxに設定 */
+  margin: 10px 0; /* 上下のマージンを設定 */
+  padding: 10px; /* パディングを設定 */
+  border: 1px solid #ccc; /* 枠線の指定 */
+  border-radius: 5px; /* 角丸にする */
+  box-sizing: border-box; /* ボックスモデルの設定 */
+}
+
+/* ローダー要素の非表示 */
+div.loader {
+  display: none;
+}
+
+/* ローダー要素とそのアニメーションのスタイル */
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%; /* 円形の形状 */
+  width: 2.5em; /* 幅の指定 */
+  height: 2.5em; /* 高さの指定 */
+  -webkit-animation-fill-mode: both; /* アニメーションの指定 */
+  animation-fill-mode: both; /* アニメーションの指定 */
+  -webkit-animation: load7 1.8s infinite ease-in-out; /* アニメーションの指定 */
+  animation: load7 1.8s infinite ease-in-out; /* アニメーションの指定 */
+}
+.loader {
+  color: #007bff; /* 色の指定 */
+  font-size: 10px; /* フォントサイズの指定 */
+  margin: -20px auto 40px auto; /* マージンの指定 */
+  position: relative; /* 相対位置指定 */
+  text-indent: -9999em; /* テキストの非表示 */
+  -webkit-transform: translateZ(0); /* 3D変形の指定 */
+  -ms-transform: translateZ(0); /* 3D変形の指定 */
+  transform: translateZ(0); /* 3D変形の指定 */
+  -webkit-animation-delay: -0.16s; /* アニメーション遅延の指定 */
+  animation-delay: -0.16s; /* アニメーション遅延の指定 */
+}
+.loader:before,
+.loader:after {
+  content: ""; /* コンテンツの非表示 */
+  position: absolute; /* 絶対位置指定 */
+  top: 0; /* 上からの位置指定 */
+}
+.loader:before {
+  left: -3.5em; /* 左からの位置指定 */
+  -webkit-animation-delay: -0.32s; /* アニメーション遅延の指定 */
+  animation-delay: -0.32s; /* アニメーション遅延の指定 */
+}
+.loader:after {
+  left: 3.5em; /* 左からの位置指定 */
+}
+
+/* ローダーアニメーションのキーフレーム指定 */
+@-webkit-keyframes load7 {
+  0%, 80%, 100% {
+      box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+      box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%, 80%, 100% {
+      box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+      box-shadow: 0 2.5em 0 0;
+  }
+}

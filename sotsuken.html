@@ -29,8 +29,8 @@
 
     <div id="InputUiDiv" class="input-ui">
       <!-- <p id="ResMsg">今日の進捗を書いてください。</p> -->
-      <input type="text" id="TextBox" placeholder="卒業研究の進捗を書いてください。" />
-      <input type="text" id="TextBox" placeholder="明日のやることを書いてください。" />
+      <input type="text" id="TextBoxProgress" placeholder="卒業研究の進捗を書いてください。" />
+      <input type="text" id="TextBoxTomorrow" placeholder="明日のやることを書いてください。" />
       <button id="Button1">送信</button>
     </div>
     <div id="IsBusy" class="loader"></div>
@@ -39,52 +39,67 @@
 
 <script>
     // ページの読み込みが完了したら実行
-    window.onload = function () {
-      // $関数: 指定された要素を取得
-      function $(e) {
-        return document.querySelector(e);
+  window.onload = function () {
+    // $関数: 指定された要素を取得
+    function $(e) {
+      return document.querySelector(e);
+    }
+    // Google Apps ScriptのAPIの情報
+    const API_ID = "AKfycbxd7Wzz1oeLH0Kwsw6f9eIdIfRhnuN3nrwhQajyiGHgUbci7tkuwykTREBfY4GKw4OY";
+    const API_URL = `https://script.google.com/macros/s/${API_ID}/exec?`;
+
+    // データを取得する関数
+    function GetData(action) {
+      // 送信中メッセージの表示とUIの調整
+      $("#ResMsg").textContent = "...送信中...";
+      $("#IsBusy").style.display = "flex";
+      $("#InputUiDiv").style.display = "none";
+
+      // APIのURLを構築
+      let URL = `${API_URL}`;
+      let progress = $("#TextBoxProgress").value;
+      if (progress.length > 0) {
+        // メモが入力されていればエンコードしてURLに追加
+        let encodedProgress = encodeURIComponent(progress);
+        URL += `progress=${encodedProgress}`;
+        $("#TextBoxProgress").value = "";
       }
-      // Google Apps ScriptのAPIの情報
-      const API_ID = "AKfycbwmXN1Gd1LdXJFsO1yiS4m-j6jEWgYyKNEsHaHNwoM";
-      const API_URL = `https://script.google.com/macros/s/${API_ID}/exec`;
-  
-      // データを取得する関数
-      function GetData(action) {
-        // 送信中メッセージの表示とUIの調整
-        $("#ResMsg").textContent = "...送信中...";
-        $("#IsBusy").style.display = "flex";
-        $("#InputUiDiv").style.display = "none";
-  
-        // APIのURLを構築
-        let URL = `${API_URL}?action=${action}`;
-        let memo = $("#TextBox").value;
-        if (memo.length > 0) {
-          // メモが入力されていればエンコードしてURLに追加
-          let encodedMemo = encodeURIComponent(memo);
-          URL += `&memo=${encodedMemo}`;
-          $("#TextBox").value = "";
-        }
-        console.log(URL);
-        // フェッチを使ってAPIにデータを送信
-        fetch(URL, { method: "GET" })
-          .then((res) => res.text())
-          .then((res) => {
-            console.log(res);
-            // レスポンスを解析してメッセージを表示し、UIを元に戻す
-            let obj = JSON.parse(res);
-            $("#ResMsg").textContent = `${obj.msg}`;
-            $("#IsBusy").style.display = "none";
-            $("#InputUiDiv").style.display = "flex";
-          });
+
+      
+
+      let tomorrow = $("#TextBoxTomorrow").value;
+
+      if(progress.length > 0 && tomorrow.length > 0){
+        URL += '&';
       }
-  
-      // ボタンがクリックされたときにGetData関数を呼び出す
-      $("#Button1").onclick = GetData.bind(null, "a");
-      $("#Button2").onclick = GetData.bind(null, "b");
-      $("#Button3").onclick = GetData.bind(null, "c");
-      // ログの表示
-      console.log("JSプログラムの読込み完了");
-    };
+      
+      if (tomorrow.length > 0) {
+        // メモが入力されていればエンコードしてURLに追加
+        let encodedTomorrow = encodeURIComponent(tomorrow);
+        URL += `&tomorrow=${encodedTomorrow}`;
+        $("#TextBoxTomorrow").value = "";
+      }
+
+      console.log(URL);
+      // フェッチを使ってAPIにデータを送信
+      fetch(URL, { method: "GET"})
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          // レスポンスを解析してメッセージを表示し、UIを元に戻す
+          let obj = JSON.parse(res);
+          $("#ResMsg").textContent = `${obj.msg}`;
+          $("#IsBusy").style.display = "none";
+          $("#InputUiDiv").style.display = "flex";
+        });
+    }
+
+    // ボタンがクリックされたときにGetData関数を呼び出す
+    $("#Button1").onclick = GetData.bind(null);
+    // ログの表示
+    console.log("JSプログラムの読込み完了");
+  };
+
   
   </script>
 </html>

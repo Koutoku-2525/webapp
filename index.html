@@ -40,8 +40,8 @@
       return document.querySelector(e);
     }
     // Google Apps ScriptのAPIの情報
-    const API_ID = "AKfycbwmXN1Gd1LdXJFsO1yiS4m-j6jEWgYyKNEsHaHNwoM";
-    const API_URL = `https://script.google.com/macros/s/${API_ID}/exec`;
+    const API_ID = "AKfycbxd7Wzz1oeLH0Kwsw6f9eIdIfRhnuN3nrwhQajyiGHgUbci7tkuwykTREBfY4GKw4OY";
+    const API_URL = `https://script.google.com/macros/s/${API_ID}/exec?`;
 
     // データを取得する関数
     function GetData(action) {
@@ -56,22 +56,27 @@
       if (year.length > 0) {
         // メモが入力されていればエンコードしてURLに追加
         let encodedYear = encodeURIComponent(year);
-        URL += `&year=${encodedYear}`;
+        URL += `year=${encodedYear}`;
         $("#TextBoxYear").value = "";
       }
 
       let subject = $("#TextBoxSubject").value;
+
+      if(year.length > 0 && subject.length > 0){
+        URL += '&';
+      }
+
       if (subject.length > 0) {
         // メモが入力されていればエンコードしてURLに追加
         let encodedSubject = encodeURIComponent(subject);
-        URL += `&subject=${encodedSubject}`;
+        URL += `subject=${encodedSubject}`;
         $("#TextBoxSubject").value = "";
       }
 
       console.log(URL);
       // フェッチを使ってAPIにデータを送信
-      fetch(URL, { method: "GET" })
-        .then((res) => res.text())
+      fetch(URL, { method: "GET"})
+        .then((res) => res.json())
         .then((res) => {
           console.log(res);
           // レスポンスを解析してメッセージを表示し、UIを元に戻す
@@ -83,7 +88,7 @@
     }
 
     // ボタンがクリックされたときにGetData関数を呼び出す
-    $("#Button1").onclick = GetData.bind(null);
+    $("#Button1").onclick = GetData(null);
     // ログの表示
     console.log("JSプログラムの読込み完了");
   };

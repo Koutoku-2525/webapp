@@ -83,7 +83,7 @@
       console.log(URL);
       // フェッチを使ってAPIにデータを送信
       fetch(URL, { method: "GET"})
-        .then((res) => res.json())
+        .then((res) => res.text())
         .then((res) => {
           console.log(res);
           // レスポンスを解析してメッセージを表示し、UIを元に戻す

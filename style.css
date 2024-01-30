@@ -87,7 +87,7 @@ button:hover {
 }
 
 /* 入力要素（input）のスタイル */
-input {
+input,textarea {
   width: 100%; /* 幅を100%に設定 */
   max-width: 400px; /* 最大幅を400pxに設定 */
   margin: 10px 0; /* 上下のマージンを設定 */

@@ -23,8 +23,8 @@
 
   <div id="InputUiDiv" class="input-ui">
     <!-- <p id="ResMsg">今日の進捗を書いてください。</p> -->
-    <input type="text" id="TextBoxYear" placeholder="年間予定を書いてください。" />
     <input type="text" id="TextBoxSubject" placeholder="課題内容を書いてください。" />
+    <input type="text" id="TextBoxMemo" placeholder="メモを書いてください。" />
     <button id="Button1">送信</button>
   </div>
   <div id="IsBusy" class="loader"></div>
@@ -52,17 +52,17 @@
 
       // APIのURLを構築
       let URL = `${API_URL}`;
-      let year = $("#TextBoxYear").value;
-      if (year.length > 0) {
+      let memo = $("#TextBoxMemo").value;
+      if (memo.length > 0) {
         // メモが入力されていればエンコードしてURLに追加
-        let encodedYear = encodeURIComponent(year);
-        URL += `year=${encodedYear}`;
-        $("#TextBoxYear").value = "";
+        let encodedMemo = encodeURIComponent(memo);
+        URL += `memo=${encodedMemo}`;
+        $("#TextBoxMemo").value = "";
       }
 
       let subject = $("#TextBoxSubject").value;
 
-      if(year.length > 0 && subject.length > 0){
+      if(memo.length > 0 && subject.length > 0){
         URL += '&';
       }
 

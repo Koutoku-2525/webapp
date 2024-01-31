@@ -14,6 +14,7 @@
   <h1>まるわかりくん</h1>
   <!-- <img src="app-img.jpg" /> -->
   <p id="fResMsg">...昨日の進捗と本日行うことを読み込み中です...</p>
+  <div id="IsBusy1" class="loader"></div>
   <p>
     1年間の予定をまとめて管理することができます。<br>
     予定表のスプレッドシート<i class="fa-regular fa-file-excel" style="color: #009900;"></i>は<a href="https://docs.google.com/spreadsheets/d/14iXCJCJV5_kdWANcofqWiJuHCQp2cr8GeUr1q0t2an4/edit?usp=sharing" target="_blank" rel="noopener noreferrer">こちら</a>。<br>
@@ -30,7 +31,8 @@
     <button id="Button1">送信</button>
   </div>
   <div id="IsBusy" class="loader"></div>
-  <p id="ResMsg">記入が終了したら送信ボタンを押してください。</p>
+  <p id="ResMsg">記入が終了したら
+    送信ボタンを押してください。</p>
 
 </body>
 
@@ -47,13 +49,16 @@
 
     let URL1 = `${API_URL}first=1`;
 
+    $("#IsBusy1").style.display = "flex";
+
     fetch(URL1, { method: "GET"})
         .then((fres) => fres.text())
         .then((fres) => {
           console.log(fres);
           // レスポンスを解析してメッセージを表示し、UIを元に戻す
           let obj = JSON.parse(fres);  
-          $("#fResMsg").textContent = `${obj.fmsg}`;
+          $("#IsBusy1").style.display = "none";
+          $("#fResMsg").innerHTML = `${obj.fmsg}`;
           console.log(obj);
         })
 

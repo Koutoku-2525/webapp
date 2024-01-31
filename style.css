@@ -36,8 +36,9 @@ h1 {
 }
 
 /* リンク（a要素）のスタイル */
-a {
+a:not(:hover) {
   text-decoration: none; /* 下線をなくす */
+  border-bottom: 3.5px #007bff dotted;
   color:black;
 }
 

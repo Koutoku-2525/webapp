@@ -7,6 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -17,7 +20,9 @@
   <div id="IsBusy1" class="loader"></div>
   <p>
     1年間の予定をまとめて管理することができます。<br>
-    予定表のスプレッドシート<i class="fa-regular fa-file-excel" style="color: #009900;"></i>は<a href="https://docs.google.com/spreadsheets/d/14iXCJCJV5_kdWANcofqWiJuHCQp2cr8GeUr1q0t2an4/edit?usp=sharing" target="_blank" rel="noopener noreferrer">こちら</a>。<br>
+    予定表のスプレッドシート<i class="fa-regular fa-file-excel" style="color: #009900;"></i>は<a
+      href="https://docs.google.com/spreadsheets/d/14iXCJCJV5_kdWANcofqWiJuHCQp2cr8GeUr1q0t2an4/edit?usp=sharing"
+      target="_blank" rel="noopener noreferrer">こちら</a>。<br>
     卒業研究の入力フォームは<a href="sotsuken.html">こちら</a>。<br>
     土曜日のAM7:00~AM8:00の間にまとめて週報が<i class="fa-brands fa-line"></i>に送信されます。
   </p>
@@ -51,16 +56,16 @@
 
     $("#IsBusy1").style.display = "flex";
 
-    fetch(URL1, { method: "GET"})
-        .then((fres) => fres.text())
-        .then((fres) => {
-          console.log(fres);
-          // レスポンスを解析してメッセージを表示し、UIを元に戻す
-          let obj = JSON.parse(fres);  
-          $("#IsBusy1").style.display = "none";
-          $("#fResMsg").innerHTML = `${obj.fmsg}`;
-          console.log(obj);
-        })
+    fetch(URL1, { method: "GET" })
+      .then((fres) => fres.text())
+      .then((fres) => {
+        console.log(fres);
+        // レスポンスを解析してメッセージを表示し、UIを元に戻す
+        let obj = JSON.parse(fres);
+        $("#IsBusy1").style.display = "none";
+        $("#fResMsg").innerHTML = `${obj.fmsg}`;
+        console.log(obj);
+      })
 
     // データを取得する関数
     function GetData(action) {
@@ -83,7 +88,7 @@
 
       let subject = $("#TextBoxSubject").value;
 
-      if(memo.length > 0 && subject.length > 0){
+      if (memo.length > 0 && subject.length > 0) {
         URL += '&';
       }
 
@@ -96,7 +101,7 @@
 
       console.log(URL);
       // フェッチを使ってAPIにデータを送信
-      fetch(URL, { method: "GET"})
+      fetch(URL, { method: "GET" })
         .then((res) => res.text())
         .then((res) => {
           console.log(res);
@@ -106,10 +111,10 @@
           $("#IsBusy").style.display = "none";
           $("#InputUiDiv").style.display = "flex";
         })
-        // .catch((error) => console.log(error));
+      // .catch((error) => console.log(error));
     }
 
-    
+
     // ボタンがクリックされたときにGetData関数を呼び出す
     $("#Button1").onclick = GetData.bind(null);
     // ログの表示

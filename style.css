@@ -2,7 +2,8 @@
 html {
   -ms-text-size-adjust: 100%; /* IEブラウザへの対応 */
   -webkit-text-size-adjust: 100%; /* Webkit系ブラウザへの対応 */
-  font-family: "Yusei Magic", sans-serif; /* フォントの指定 */
+  font-family: "Yusei Magic", sans-serif;
+  font-family: 'Noto Sans JP', sans-serif; /* フォントの指定 */
 }
 
 /* ページ全体のスタイル */
@@ -45,7 +46,9 @@ a:not(:hover) {
 /* リンクホバー時のスタイル */
 a:hover {
   text-decoration: underline double; /* 下線と点線を表示 */
-  text-decoration-color: #007bff; /* 下線と点線の色を赤に設定 */
+  text-decoration-color: #007bff; 
+  cursor: pointer;
+	color: #007bff;/* 下線と点線の色を赤に設定 */
 }
 
 /* 画像（img要素）のスタイル */
@@ -79,7 +82,7 @@ button {
   cursor: pointer; /* カーソルをポインタに設定 */
   transition: background-color 0.5s; /* 背景色の変化をアニメーション化 */
   border-radius: 5px; /* 角丸にする */
-  font-family: "Yusei Magic", sans-serif; /* フォントの指定 */
+  font-family: 'Noto Sans JP', sans-serif; /* フォントの指定 */
 }
 
 /* ボタンホバー時のスタイル */

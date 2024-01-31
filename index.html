@@ -12,7 +12,8 @@
 
 <body>
   <h1>まるわかりくん</h1>
-  <img src="app-img.jpg" />
+  <!-- <img src="app-img.jpg" /> -->
+  <p id="fResMsg">...昨日の進捗と本日行うことを読み込み中です...</p>
   <p>
     1年間の予定をまとめて管理することができます。<br>
     予定表のスプレッドシート<i class="fa-regular fa-file-excel" style="color: #009900;"></i>は<a href="https://docs.google.com/spreadsheets/d/14iXCJCJV5_kdWANcofqWiJuHCQp2cr8GeUr1q0t2an4/edit?usp=sharing" target="_blank" rel="noopener noreferrer">こちら</a>。<br>
@@ -44,6 +45,18 @@
     const API_ID = "AKfycbxd7Wzz1oeLH0Kwsw6f9eIdIfRhnuN3nrwhQajyiGHgUbci7tkuwykTREBfY4GKw4OY";
     const API_URL = `https://script.google.com/macros/s/${API_ID}/exec?`;
 
+    let URL1 = `${API_URL}first=1`;
+
+    fetch(URL1, { method: "GET"})
+        .then((fres) => fres.text())
+        .then((fres) => {
+          console.log(fres);
+          // レスポンスを解析してメッセージを表示し、UIを元に戻す
+          let obj = JSON.parse(fres);  
+          $("#fResMsg").textContent = `${obj.fmsg}`;
+          console.log(obj);
+        })
+
     // データを取得する関数
     function GetData(action) {
       // 送信中メッセージの表示とUIの調整
@@ -53,6 +66,8 @@
 
       // APIのURLを構築
       let URL = `${API_URL}`;
+
+
       let memo = $("#TextBoxMemo").value;
       if (memo.length > 0) {
         // メモが入力されていればエンコードしてURLに追加
@@ -89,6 +104,7 @@
         // .catch((error) => console.log(error));
     }
 
+    
     // ボタンがクリックされたときにGetData関数を呼び出す
     $("#Button1").onclick = GetData.bind(null);
     // ログの表示

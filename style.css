@@ -17,6 +17,7 @@ body {
   text-align: center; /* テキストを中央寄せ */
 }
 
+
 /* 段落のスタイル */
 p {
   font-size: 1.3rem; /* フォントサイズの指定 */
@@ -34,6 +35,17 @@ p {
 /* 見出し1（h1）のスタイル */
 h1 {
   font-size: 2rem; /* フォントサイズの指定 */
+}
+
+.circle {
+  margin: 30px auto;
+  border: dotted 3px #007bff;
+  text-align: center;
+  max-width: 60%;
+}
+
+.newline {
+  margin:30px auto;
 }
 
 /* リンク（a要素）のスタイル */

@@ -30,6 +30,15 @@ p {
       padding-left: 15px; /* 左のパディングを15pxに設定 */
       padding-right: 15px; /* 右のパディングを15pxに設定 */
   }
+  .circle{
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 767px){
+  .circle{
+    max-width: 70%;
+  }
 }
 
 /* 見出し1（h1）のスタイル */
@@ -41,7 +50,6 @@ h1 {
   margin: 30px auto;
   border: dotted 3px #007bff;
   text-align: center;
-  max-width: 100%;
 }
 
 .newline {
